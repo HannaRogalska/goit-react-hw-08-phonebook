@@ -10,7 +10,7 @@ import { RotatingLines } from 'react-loader-spinner';
 
 export default function ContactForm() {
   const { data } = useGetContactsQuery();
-  const [addContact, { isLoading, isSuccess }] = useAddContactMutation();
+  const [addContact, { isLoading }] = useAddContactMutation();
 
   const [number, setNumber] = useState('');
   const [name, setName] = useState('');
@@ -36,11 +36,7 @@ export default function ContactForm() {
       toast.error(`Contact ${name} already exists in your ContactList`);
       return;
     }
-
-    if (isSuccess) {
       addContact({ name: name, number: number });
-    }
-
     resetForm();
   };
 
@@ -58,7 +54,7 @@ export default function ContactForm() {
           type="text"
           name="name"
           value={name}
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+           pattern="^[^\d]+$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
         />
